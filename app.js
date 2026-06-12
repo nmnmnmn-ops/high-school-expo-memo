@@ -184,10 +184,10 @@ function openEditModal(schoolId) {
     const modalContent = document.createElement('div');
     modalContent.className = 'modal-content';
     
-    let html = `<div class="modal-header">✏️ ${escapeHtml(school.name)} - 回答編集</div>`;
+    let html = '<div class="modal-header">✏️ ' + escapeHtml(school.name) + ' - 回答編集</div>';
     html += '<div class="modal-tabs">';
-    html += '<button class="tab-button active" onclick="switchTab(event, \'student\')\"👥 在校生への質問</button>';
-    html += '<button class="tab-button" onclick="switchTab(event, \'teacher\')\"👨‍🏫 先生への質問</button>';
+    html += '<button class="tab-button active" onclick="switchTab(event, \'student\')">👥 在校生への質問</button>';
+    html += '<button class="tab-button" onclick="switchTab(event, \'teacher\')">👨‍🏫 先生への質問</button>';
     html += '</div>';
     
     // 在校生への質問
@@ -223,7 +223,7 @@ function openEditModal(schoolId) {
     html += '</div>';
 
     html += '<div class="modal-actions">';
-    html += `<button class="btn btn-primary" onclick="saveEdits(${schoolId})">保存</button>`;
+    html += '<button class="btn btn-primary" onclick="saveEdits(' + schoolId + ')">保存</button>';
     html += '<button class="btn btn-secondary" style="background: #cbd5e0; color: #2d3748;" onclick="closeModal()">キャンセル</button>';
     html += '</div>';
 
@@ -264,14 +264,14 @@ function saveEdits(schoolId) {
     if (!school) return;
 
     STUDENT_QUESTIONS.forEach(q => {
-        const textarea = document.getElementById(`student_${q.id}`);
+        const textarea = document.getElementById('student_' + q.id);
         if (textarea) {
             school.studentAnswers[q.id] = textarea.value.trim();
         }
     });
 
     TEACHER_QUESTIONS.forEach(q => {
-        const textarea = document.getElementById(`teacher_${q.id}`);
+        const textarea = document.getElementById('teacher_' + q.id);
         if (textarea) {
             school.teacherAnswers[q.id] = textarea.value.trim();
         }
@@ -304,17 +304,17 @@ function downloadData() {
     
     // ヘッダー
     csv += '学校名,';
-    csv += STUDENT_QUESTIONS.map(q => `"${q.label}"`).join(',') + ',';
-    csv += TEACHER_QUESTIONS.map(q => `"${q.label}"`).join(',') + ',';
-    csv += RATING_ITEMS.map(r => `"${r.label}（評価）"`).join(',');
+    csv += STUDENT_QUESTIONS.map(q => '"' + q.label + '"').join(',') + ',';
+    csv += TEACHER_QUESTIONS.map(q => '"' + q.label + '"').join(',') + ',';
+    csv += RATING_ITEMS.map(r => '"' + r.label + '（評価）"').join(',');
     csv += '\n';
 
     // データ行
     schools.forEach(school => {
-        csv += `"${school.name}",`;
-        csv += STUDENT_QUESTIONS.map(q => `"${(school.studentAnswers[q.id] || '').replace(/"/g, '""')}"`).join(',') + ',';
-        csv += TEACHER_QUESTIONS.map(q => `"${(school.teacherAnswers[q.id] || '').replace(/"/g, '""')}"`).join(',') + ',';
-        csv += RATING_ITEMS.map(r => `"${school.ratings[r.id] || 0}"`).join(',');
+        csv += '"' + school.name + '",';
+        csv += STUDENT_QUESTIONS.map(q => '"' + (school.studentAnswers[q.id] || '').replace(/"/g, '""') + '"').join(',') + ',';
+        csv += TEACHER_QUESTIONS.map(q => '"' + (school.teacherAnswers[q.id] || '').replace(/"/g, '""') + '"').join(',') + ',';
+        csv += RATING_ITEMS.map(r => '"' + (school.ratings[r.id] || 0) + '"').join(',');
         csv += '\n';
     });
 
@@ -324,7 +324,7 @@ function downloadData() {
     const url = URL.createObjectURL(blob);
 
     link.setAttribute('href', url);
-    link.setAttribute('download', `高校受験メモ_${new Date().toLocaleDateString('ja-JP')}.csv`);
+    link.setAttribute('download', '高校受験メモ_' + new Date().toLocaleDateString('ja-JP') + '.csv');
     link.style.visibility = 'hidden';
 
     document.body.appendChild(link);
