@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高校受験 全公立展メモ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- ヘッダー -->
+        <header>
+            <h1>📚 高校受験メモ</h1>
+            <p>全公立展での質問・回答を記録</p>
+        </header>
+
+        <!-- メインコンテンツ -->
+        <main>
+            <!-- 学校追加セクション -->
+            <section class="add-school-section">
+                <h2>新しい学校を追加</h2>
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="schoolNameInput" 
+                        placeholder="学校名を入力（例：◯◯高校）"
+                        maxlength="30"
+                    >
+                    <button onclick="addSchool()" class="btn btn-primary">追加</button>
+                </div>
+                <p class="hint">最大5校まで登録できます</p>
+            </section>
+
+            <!-- 学校リスト -->
+            <section class="schools-section">
+                <div id="schoolsList"></div>
+            </section>
+
+            <!-- 操作ボタン -->
+            <section class="action-buttons">
+                <button onclick="downloadData()" class="btn btn-secondary">📥 データをダウンロード</button>
+                <button onclick="clearAllData()" class="btn btn-danger">🗑️ すべてをリセット</button>
+            </section>
+        </main>
+
+        <!-- フッター -->
+        <footer>
+            <p>💡 ヒント: すべてのデータはスマホに自動保存されます</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
